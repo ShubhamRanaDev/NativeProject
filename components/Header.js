@@ -12,16 +12,14 @@ const Header = props => {
 const styles = StyleSheet.create({
   headerContainer: {
     width: '100%',
-    height: 90,
-    backgroundColor: '#ffa07a',
+    height: 60,
     alignItems: 'center',
     justifyContent: 'center',
-    paddingTop: 36
+    paddingTop: 20
   },
   headerTitle: {
     color: 'black',
     fontSize: 18
-
   }
 
 })

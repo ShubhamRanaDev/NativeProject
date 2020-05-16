@@ -1,96 +1,123 @@
-import React from 'react'
-import { View, StyleSheet, Text, TextInput, Button } from 'react-native'
+import React, {useState} from 'react'
+import {View, StyleSheet, Text, TextInput, Button, Alert} from 'react-native'
 import Header from './Header'
+import Card from './Card'
+import { Ionicons } from '@expo/vector-icons';
 
 const Register = props => {
-  return (
-      <View>
-        <Header title="Weather App" />
-        <View style={styles.loginContainer}>
-        <Text style={styles.intro}>
-                    Register
-                </Text>
-            <View style={styles.inputContainer}>
-                <TextInput placeholder="Email" style={styles.input}/>
-                <TextInput placeholder="Username" style={styles.input}/>
-                <TextInput placeholder="Password" style={styles.input}/>
-                <TextInput placeholder="Confirm password" style={styles.input}/>
+    const [email, setEmail] = useState('');
+    const [userName, setUserName] = useState('');
+    const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
 
-                <View style={styles.buttonContainer}>
-            <View style={styles.button}>
-              <Button title='Reset' />
-            </View>
-            <View style={styles.button}>
-              <Button title='Register' />
-            </View>
-          </View>
-          <View style={styles.registerContainer}>
-            <View style={styles.registerText}>
-              <Button title='Login In' />
-            </View>
-          </View>
+    //const [inputArray, setInputArray] = useState([]);
+    const errormsg=["Invalid Email","Invalid username","Password didn't match"];
+
+    const emailHandler = (inputText) => {
+        setEmail(inputText);
+    }
+
+    const userNameHandler = (inputText) => {
+        setUserName(inputText);
+    }
+
+    const passwordHandler = (inputText) => {
+        setPassword(inputText)
+    }
+
+    const confirmPasswordHandler = (inputText) => {
+        setConfirmPassword(inputText)
+    }
+
+    const resetEmailHandler = () => {
+        setEmail('');
+    }
+
+    const checkInputHandler = () => {
+       if(!email.includes(/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/
+    )){
+           Alert.alert('Invalid Email Address', 'Email must contain @', [{text: 'Okay', style:'destructive', onPress: resetEmailHandler}])
+       }
+    }
+
+    return (
+        <View>
+            <Header title="Weather App"/>
+            <View style={styles.registerContainer}>
+                <Text style={styles.intro}>Register</Text>
+                <Card style={styles.inputContainer}>
+                    <Ionicons name='md-mail' size={24} color='black'/>
+                    <TextInput placeholder="Email" style={styles.input} onChangeText={emailHandler}/>
+                </Card>
+                <Card style={styles.inputContainer}>
+                    <Ionicons name='md-person' size={24} color='black'/>
+                    <TextInput placeholder="Username" style={styles.input} onChangeText={userNameHandler}/>
+                </Card>
+                    <Card style={styles.inputContainer}>
+                        <Ionicons name='md-lock' size={24} color='black'/>
+                    <TextInput placeholder="Password" style={styles.input} onChangeText={passwordHandler}/>
+                    </Card>
+                        <Card style={styles.inputContainer}>
+                            <Ionicons name='md-lock' size={24} color='black'/>
+                    <TextInput placeholder="Confirm password" style={styles.input} onChangeText={confirmPasswordHandler}/>
+                        </Card>
+
+                    <View style={styles.buttonContainer}>
+                        <View style={styles.button}>
+                            <Button title='REGISTER' onPress={checkInputHandler}/>
+                        </View>
+                        <View style={styles.button}>
+                            <Button title='SIGN IN'/>
+                        </View>
+                    </View>
+                <Text>{email},{userName},{password},{confirmPassword}</Text>
             </View>
         </View>
-      </View>
-  )}
+    )
+}
 
-  const styles = StyleSheet.create({
-      intro:{
-          textAlign:"center",
-          padding:10,
-          fontSize:30
-      },
-      loginContainer: {
+const styles = StyleSheet.create({
+    intro: {
+        textAlign: "center",
+        fontSize: 16
+    },
+    registerContainer: {
         alignItems: 'center',
         justifyContent: 'center',
         marginVertical: 30
-      },
-      text: {
+    },
+    text: {
         fontSize: 20
-      },
-      inputContainer: {
+    },
+    inputContainer: {
         width: '80%',
-        shadowColor: 'black',
-        shadowOffset: {
-          width: 0,
-          height: 2
-        },
-        shadowOpacity: 0.26,
-        shadowRadius: 6,
-        elevation: 6,
-        backgroundColor: 'white',
-        borderRadius: 10,
-        padding: 20,
+        height: 60,
         marginVertical: 20,
-        textAlign: 'center',
+        flexDirection:  'row',
         alignItems: 'center',
         justifyContent: 'center'
-    
-      },
-      input: {
+    },
+    input: {
         width: '80%',
         height: 30,
         borderBottomColor: 'grey',
         borderBottomWidth: 1,
-        marginVertical: 10
-      },
-      buttonContainer: {
+        marginVertical: 10,
+        marginLeft: 10,
+    },
+    buttonContainer: {
         width: '100%',
         flexDirection: 'row',
         justifyContent: 'space-around',
-        paddingHorizontal: 10
-      },
-      button: {
-        width: '35%'
-      },
-      registerContainer: {
-        width: '80%',
-        alignItems: 'flex-end',
-        marginVertical: 20
-      },
-      registerText: {
-        width: '40%',
-        textAlign: 'center'
-      }
-  })
-  export default Register
+        paddingHorizontal: 10,
+        marginTop: 10
+    },
+    button: {
+        width: 120,
+        borderRadius: 50,
+        borderWidth: 1,
+        overflow: 'hidden',
+        fontSize: 10
+    }
+})
+export default Register
