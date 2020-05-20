@@ -4,7 +4,7 @@ import Header from './Header'
 import Card from './Card'
 import { Ionicons } from '@expo/vector-icons';
 
-const Login = props => {
+const Login = ({navigation}) => {
 
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
@@ -43,7 +43,7 @@ const Login = props => {
               <Button title='SIGN In' onPress={userHandler}/>
             </View>
             <View style={styles.button}>
-              <Button title='SIGN UP' />
+              <Button title='SIGN UP' onPress={() => navigation.navigate('Register')}/>
             </View>
           </View>
         <Text>userName : {userName}</Text>

@@ -4,14 +4,12 @@ import Header from './Header'
 import Card from './Card'
 import { Ionicons } from '@expo/vector-icons';
 
-const Register = props => {
+const Register = ({navigation}) => {
     const [email, setEmail] = useState('');
     const [userName, setUserName] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
 
-    //const [inputArray, setInputArray] = useState([]);
-    const errormsg=["Invalid Email","Invalid username","Password didn't match"];
 
     const emailHandler = (inputText) => {
         setEmail(inputText);
@@ -33,12 +31,12 @@ const Register = props => {
         setEmail('');
     }
 
-    const checkInputHandler = () => {
-       if(!email.includes(/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/
-    )){
-           Alert.alert('Invalid Email Address', 'Email must contain @', [{text: 'Okay', style:'destructive', onPress: resetEmailHandler}])
-       }
-    }
+    // const checkInputHandler = () => {
+    //    if(!email.includes(/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/
+    // )){
+    //        Alert.alert('Invalid Email Address', 'Email must contain @', [{text: 'Okay', style:'destructive', onPress: resetEmailHandler}])
+    //    }
+    // }
 
     return (
         <View>
@@ -64,10 +62,10 @@ const Register = props => {
 
                     <View style={styles.buttonContainer}>
                         <View style={styles.button}>
-                            <Button title='REGISTER' onPress={checkInputHandler}/>
+                            <Button title='REGISTER'/>
                         </View>
                         <View style={styles.button}>
-                            <Button title='SIGN IN'/>
+                            <Button title='SIGN IN' onPress={() => navigation.navigate('Login')}/>
                         </View>
                     </View>
                 <Text>{email},{userName},{password},{confirmPassword}</Text>
