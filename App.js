@@ -4,6 +4,17 @@ import Login from "./components/login";
 import Register from "./components/register";
 import MainScreen from "./screens/MainScreen";
 import WeatherScreen from "./screens/WeatherScreen";
+import useResults from "./hooks/useResults";
+import { init } from './database/db';
+
+init()
+.then(()=>{
+  console.log('Initializing Database');
+})
+.catch(err=>{
+  console.log('db failed');
+  console.log(err);
+})
 
 const navigation = createStackNavigator(
   {
@@ -11,6 +22,7 @@ const navigation = createStackNavigator(
     Register: Register,
     MainScreen: MainScreen,
     Weather: WeatherScreen,
+    Api: useResults
   },
   {
     initialRouteName: "Login",

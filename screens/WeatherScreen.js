@@ -11,13 +11,17 @@ import {
 import useResults from "../hooks/useResults";
 import Card from "../components/Card";
 import { Feather } from "@expo/vector-icons";
-import { countries } from "country-data";
+
 
 const WeatherScreen = ({ navigation }) => {
   const [searchApi, results, errorMessage] = useResults();
+  //console.log('hi weather');
+
   if (Object.keys(results).length === 0) {
     return null;
   }
+  console.log('city changed to ='+results.name)
+  //console.log(results)
 
   let dateTime = results.dt;
   let date = new Date(dateTime * 1000);
@@ -60,7 +64,7 @@ const WeatherScreen = ({ navigation }) => {
       <View>
         <Text style={styles.title}>{results.name}</Text>
         <Text style={styles.subTitle}>
-          {countries[results.sys.country].name}
+          {results.sys.country}
         </Text>
         <View style={styles.weatherInfoContainer}>
           {/* <Image

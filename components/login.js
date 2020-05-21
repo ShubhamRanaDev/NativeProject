@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import * as SQLite from 'expo-sqlite';
 import {
   View,
   StyleSheet,
@@ -11,10 +12,12 @@ import {
 import Header from "./Header";
 import Card from "./Card";
 import { Ionicons } from "@expo/vector-icons";
+import {checkUser, insertUser} from "../database/db";
 
 const Login = ({ navigation }) => {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
+
 
   const userHandler = () => {};
 
@@ -24,6 +27,17 @@ const Login = ({ navigation }) => {
 
   const passwordHandler = (password) => {
     setPassword(password);
+  };
+
+  const onSubmitChecked= async () => {
+    try {
+      const dbResult = await checkUser(userName);
+      console.log(dbResult.rows._array.password);
+      navigation.navigate("Register");
+    } catch (e) {
+      console.log(e);
+      throw e;
+    }
   };
 
   return (
@@ -63,7 +77,8 @@ const Login = ({ navigation }) => {
             <View style={styles.button}>
               <Button
                 title="SIGN UP"
-                onPress={() => navigation.navigate("Register")}
+                //onPress={() => navigation.navigate("Register")}
+                  onPress={onSubmitChecked}
                 color="#010124"
               />
             </View>

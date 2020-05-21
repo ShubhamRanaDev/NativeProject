@@ -3,7 +3,7 @@ import { View, StyleSheet, Text, Tex } from "react-native";
 import useResults from "../hooks/useResults";
 import SearchBar from "../components/SearchBar";
 
-const MainScreen = ({ navigation }) => {
+const MainScreen = () => {
   const [term, setTerm] = useState("");
   const [searchApi, results, errorMessage] = useResults();
 
@@ -14,8 +14,6 @@ const MainScreen = ({ navigation }) => {
         onTermChange={setTerm}
         onTermSubmit={() => {
           searchApi(term);
-          navigation.navigate("Weather");
-          console.log(term);
         }}
       />
       {/* {errorMessage ? <Text>{errorMessage}</Text> : ""} */}

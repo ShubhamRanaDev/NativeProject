@@ -11,6 +11,9 @@ import {
 import Header from "./Header";
 import Card from "./Card";
 import { Ionicons } from "@expo/vector-icons";
+import {insertUser} from "../database/db";
+
+
 
 const Register = ({ navigation }) => {
   const [email, setEmail] = useState("");
@@ -37,6 +40,17 @@ const Register = ({ navigation }) => {
   const resetEmailHandler = () => {
     setEmail("");
   };
+  const onSubmitChecked= async () => {
+    try {
+      const dbResult = await insertUser(userName, password, email);
+      console.log(dbResult);
+    } catch (e) {
+      console.log(e);
+      throw e;
+    }
+  };
+
+
 
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
@@ -79,7 +93,7 @@ const Register = ({ navigation }) => {
 
           <View style={styles.buttonContainer}>
             <View style={styles.button}>
-              <Button title="REGISTER" color="#010124" />
+              <Button title="REGISTER" color="#010124" onPress={onSubmitChecked}/>
             </View>
             <View style={styles.button}>
               <Button
@@ -89,9 +103,6 @@ const Register = ({ navigation }) => {
               />
             </View>
           </View>
-          <Text>
-            {email},{userName},{password},{confirmPassword}
-          </Text>
         </View>
       </View>
     </TouchableWithoutFeedback>
