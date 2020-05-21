@@ -18,8 +18,10 @@ export default () => {
           appid: "d5f2506e7a55b0a90335036fd389c8c4",
         },
       });
-      const dt = response.data;
-      setResults(dt);
+      setResults(response.data);
+      console.log('response = ' + response.data.name)
+      console.log('result = ' + results.name)
+
       //navigation.navigate('Weather')
       //console.log('name'+ results.name)
       //console.log(results);

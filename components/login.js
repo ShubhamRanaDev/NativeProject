@@ -32,8 +32,11 @@ const Login = ({ navigation }) => {
   const onSubmitChecked= async () => {
     try {
       const dbResult = await checkUser(userName);
-      console.log(dbResult.rows._array.password);
-      navigation.navigate("Register");
+      //console.log(dbResult.rows._array[0].Password);
+      if(dbResult.rows._array[0].Password==password)
+      {
+      navigation.navigate("Weather");
+      }
     } catch (e) {
       console.log(e);
       throw e;
@@ -70,15 +73,15 @@ const Login = ({ navigation }) => {
             <View style={styles.button}>
               <Button
                 title="SIGN In"
-                onPress={() => navigation.navigate("Weather")}
+                onPress={onSubmitChecked}
                 color="#010124"
               />
             </View>
             <View style={styles.button}>
               <Button
                 title="SIGN UP"
-                //onPress={() => navigation.navigate("Register")}
-                  onPress={onSubmitChecked}
+                onPress={() => navigation.navigate("Register")}
+                  
                 color="#010124"
               />
             </View>
