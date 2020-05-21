@@ -3,17 +3,20 @@ import { View, StyleSheet, Text, Tex } from "react-native";
 import useResults from "../hooks/useResults";
 import SearchBar from "../components/SearchBar";
 
-const MainScreen = () => {
+const MainScreen = ({ navigation }) => {
   const [term, setTerm] = useState("");
   const [searchApi, results, errorMessage] = useResults();
-  //console.log(results);
 
   return (
     <View>
       <SearchBar
         term={term}
         onTermChange={setTerm}
-        onTermSubmit={() => searchApi(term)}
+        onTermSubmit={() => {
+          searchApi(term);
+          navigation.navigate("Weather");
+          console.log(term);
+        }}
       />
       {/* {errorMessage ? <Text>{errorMessage}</Text> : ""} */}
     </View>
