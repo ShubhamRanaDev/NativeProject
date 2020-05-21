@@ -8,22 +8,20 @@ import {
   Button,
   TouchableOpacity,
 } from "react-native";
-import useResults from "../hooks/useResults";
 import Card from "../components/Card";
 import { Feather } from "@expo/vector-icons";
 
-
-const WeatherScreen = ({ navigation }) => {
-  const [searchApi, results, errorMessage] = useResults();
+const WeatherScreen = ({ result }) => {
+  //const [searchApi, results, errorMessage] = useResults();
   //console.log('hi weather');
 
-  if (Object.keys(results).length === 0) {
+  if (Object.keys(result).length === 0) {
     return null;
   }
-  console.log('city changed to ='+results.name)
+  console.log("city changed to =" + result.name);
   //console.log(results)
 
-  let dateTime = results.dt;
+  let dateTime = result.dt;
   let date = new Date(dateTime * 1000);
   let d = date.toLocaleDateString();
   let t = date.toLocaleTimeString();
@@ -53,62 +51,45 @@ const WeatherScreen = ({ navigation }) => {
   };
 
   return (
-    <ImageBackground
-      source={require("../assets/back-image.jpg")}
-      style={{
-        width: "100%",
-        flex: 1,
-      }}
-      resizeMode="cover"
-    >
-      <View>
-        <Text style={styles.title}>{results.name}</Text>
-        <Text style={styles.subTitle}>
-          {results.sys.country}
+    <View>
+      <Text style={styles.title}>{result.name}</Text>
+      <Text style={styles.subTitle}>{result.sys.country}</Text>
+      <View style={styles.weatherInfoContainer}>
+        <Text style={styles.degree}>
+          {result.main.temp.toFixed(0)} {"\u00B0"}C
         </Text>
-        <View style={styles.weatherInfoContainer}>
-          {/* <Image
-            style={styles.image}
-            source={{
-              uri: `http://openweathermap.org/img/wn/${results.weather[0].icon}@4x.png`,
-            }}
-          /> */}
-          <Text style={styles.degree}>
-            {results.main.temp.toFixed(0)} {"\u00B0"}C
-          </Text>
-        </View>
-        <Text style={styles.tempInfo}>
-          {results.main.temp_max.toFixed(0)}
-          {"\u00B0"} / {results.main.temp_min.toFixed(0)}
-          {"\u00B0"} &nbsp; Feels like &nbsp;
-          {results.main.feels_like.toFixed(0)}
-          {"\u00B0"}
-        </Text>
-        <Text style={styles.weatherInfo}>{results.weather[0].main}</Text>
-        <View style={styles.updateContainer}>
-          <Text style={styles.updated}>
-            updated {d}
-            {"\n"}
-            {t}
-          </Text>
-          <TouchableOpacity onPress={() => navigation.navigate("MainScreen")}>
-            <Feather name="plus" color="white" size={28} />
-          </TouchableOpacity>
-        </View>
-        <Card style={styles.card}>
-          <Text style={styles.humidity}>Humidity</Text>
-          <Text style={styles.humidity}>{results.main.humidity} %</Text>
-        </Card>
-        <Card style={styles.card}>
-          <Text style={styles.humidity}>Wind Speed</Text>
-          <Text style={styles.humidity}>{results.wind.speed} km/h</Text>
-        </Card>
-        <Card style={styles.card}>
-          <Text style={styles.humidity}>Wind Direction</Text>
-          <Text style={styles.humidity}>{degToCompass(results.wind.deg)}</Text>
-        </Card>
       </View>
-    </ImageBackground>
+      <Text style={styles.tempInfo}>
+        {result.main.temp_max.toFixed(0)}
+        {"\u00B0"} / {result.main.temp_min.toFixed(0)}
+        {"\u00B0"} &nbsp; Feels like &nbsp;
+        {result.main.feels_like.toFixed(0)}
+        {"\u00B0"}
+      </Text>
+      <Text style={styles.weatherInfo}>{result.weather[0].main}</Text>
+      <View style={styles.updateContainer}>
+        <Text style={styles.updated}>
+          updated {d}
+          {"\n"}
+          {t}
+        </Text>
+        <TouchableOpacity onPress={() => navigation.navigate("MainScreen")}>
+          <Feather name="plus" color="white" size={28} />
+        </TouchableOpacity>
+      </View>
+      <Card style={styles.card}>
+        <Text style={styles.humidity}>Humidity</Text>
+        <Text style={styles.humidity}>{result.main.humidity} %</Text>
+      </Card>
+      <Card style={styles.card}>
+        <Text style={styles.humidity}>Wind Speed</Text>
+        <Text style={styles.humidity}>{result.wind.speed} km/h</Text>
+      </Card>
+      <Card style={styles.card}>
+        <Text style={styles.humidity}>Wind Direction</Text>
+        <Text style={styles.humidity}>{degToCompass(result.wind.deg)}</Text>
+      </Card>
+    </View>
   );
 };
 

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import * as SQLite from 'expo-sqlite';
+import * as SQLite from "expo-sqlite";
 import {
   View,
   StyleSheet,
@@ -12,12 +12,11 @@ import {
 import Header from "./Header";
 import Card from "./Card";
 import { Ionicons } from "@expo/vector-icons";
-import {checkUser, insertUser} from "../database/db";
+import { checkUser, insertUser } from "../database/db";
 
 const Login = ({ navigation }) => {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
-
 
   const userHandler = () => {};
 
@@ -29,13 +28,12 @@ const Login = ({ navigation }) => {
     setPassword(password);
   };
 
-  const onSubmitChecked= async () => {
+  const onSubmitChecked = async () => {
     try {
       const dbResult = await checkUser(userName);
       //console.log(dbResult.rows._array[0].Password);
-      if(dbResult.rows._array[0].Password==password)
-      {
-      navigation.navigate("Weather");
+      if (dbResult.rows._array[0].Password == password) {
+        navigation.navigate("MainScreen");
       }
     } catch (e) {
       console.log(e);
@@ -81,7 +79,6 @@ const Login = ({ navigation }) => {
               <Button
                 title="SIGN UP"
                 onPress={() => navigation.navigate("Register")}
-                  
                 color="#010124"
               />
             </View>

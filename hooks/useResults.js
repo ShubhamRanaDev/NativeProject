@@ -4,11 +4,8 @@ import WeatherApi from "../api/WeatherApi";
 export default () => {
   const [results, setResults] = useState({});
   const [errorMessage, setErrorMessage] = useState("");
-  const [term, setterm] = useState("montreal");
-  
 
   const searchApi = async (searchTerm) => {
-    setterm(searchTerm);
     try {
       //console.log("city="+searchTerm);
       const response = await WeatherApi.get("/weather", {
@@ -19,20 +16,14 @@ export default () => {
         },
       });
       setResults(response.data);
-      console.log('response = ' + response.data.name)
-      console.log('result = ' + results.name)
-
-      //navigation.navigate('Weather')
-      //console.log('name'+ results.name)
-      //console.log(results);
     } catch (err) {
       setErrorMessage("Something went wrong");
     }
   };
 
   useEffect(() => {
-    searchApi(term);
-  }, [term]);
+    searchApi("montreal");
+  }, []);
 
   return [searchApi, results, errorMessage];
 };
