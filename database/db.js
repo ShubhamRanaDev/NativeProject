@@ -27,11 +27,11 @@ export const insertUser =(userName,password,email) =>{
             tx.executeSql('INSERT INTO places (UserName,Password,Email) VALUES (?,?,?);'
                 ,[userName,password,email],
                 (_,result)=>{
-                    //console.log("query executed");
+                    console.log("query executed");
                     resolve(result);
                 },
                 (_,err)=>{
-                    // console.log("query NOT executed");
+                    console.log("query NOT executed");
                     reject(err);
                 }
             );

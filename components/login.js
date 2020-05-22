@@ -31,7 +31,6 @@ const Login = ({ navigation }) => {
   const onSubmitChecked = async () => {
     try {
       const dbResult = await checkUser(userName);
-      //console.log(dbResult.rows._array[0].Password);
       if (dbResult.rows._array[0].Password == password) {
         navigation.navigate("MainScreen");
       }
@@ -83,8 +82,6 @@ const Login = ({ navigation }) => {
               />
             </View>
           </View>
-          <Text>userName : {userName}</Text>
-          <Text>Password : {password}</Text>
         </View>
       </View>
     </TouchableWithoutFeedback>

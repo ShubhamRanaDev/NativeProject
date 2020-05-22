@@ -12,14 +12,11 @@ import Card from "../components/Card";
 import { Feather } from "@expo/vector-icons";
 
 const WeatherScreen = ({ result }) => {
-  //const [searchApi, results, errorMessage] = useResults();
-  //console.log('hi weather');
 
   if (Object.keys(result).length === 0) {
     return null;
   }
-  console.log("city changed to =" + result.name);
-  //console.log(results)
+ 
 
   let dateTime = result.dt;
   let date = new Date(dateTime * 1000);
@@ -73,9 +70,7 @@ const WeatherScreen = ({ result }) => {
           {"\n"}
           {t}
         </Text>
-        <TouchableOpacity onPress={() => navigation.navigate("MainScreen")}>
-          <Feather name="plus" color="white" size={28} />
-        </TouchableOpacity>
+       
       </View>
       <Card style={styles.card}>
         <Text style={styles.humidity}>Humidity</Text>
