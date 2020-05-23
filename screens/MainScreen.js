@@ -10,10 +10,14 @@ import useResults from "../hooks/useResults";
 import SearchBar from "../components/SearchBar";
 import WeatherScreen from "../screens/WeatherScreen";
 
+
+
 const MainScreen = ({ navigation }) => {
   const [term, setTerm] = useState("");
   const [searchApi, results] = useResults();
-
+  
+ 
+  
   return (
     <TouchableWithoutFeedback
       onPress={() => {

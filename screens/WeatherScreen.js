@@ -46,6 +46,7 @@ const WeatherScreen = ({ result }) => {
     ];
     return arr[val % 16];
   };
+  
 
   return (
     <View>

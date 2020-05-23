@@ -6,6 +6,7 @@ import MainScreen from "./screens/MainScreen";
 import WeatherScreen from "./screens/WeatherScreen";
 import useResults from "./hooks/useResults";
 import { init } from './database/db';
+import {BackAndroid} from 'react-native';
 
 init()
 .then(()=>{
@@ -16,20 +17,23 @@ init()
   console.log(err);
 })
 
+
+
 const navigation = createStackNavigator(
   {
     Login: Login,
     Register: Register,
     MainScreen: MainScreen,
     Weather: WeatherScreen,
-    Api: useResults
   },
   {
     initialRouteName: "Login",
     defaultNavigationOptions: {
-      title: "Weather App",
+      headerShown: false
     },
+    
   }
 );
+
 
 export default createAppContainer(navigation);

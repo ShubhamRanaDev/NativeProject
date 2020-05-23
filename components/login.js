@@ -8,6 +8,7 @@ import {
   Button,
   TouchableWithoutFeedback,
   Keyboard,
+  Alert
 } from "react-native";
 import Header from "./Header";
 import Card from "./Card";
@@ -34,9 +35,16 @@ const Login = ({ navigation }) => {
       if (dbResult.rows._array[0].Password == password) {
         navigation.navigate("MainScreen");
       }
+      else{
+        Alert.alert(
+          "Invalid",
+          "Incorrect username or password",
+          [{ text: "Okay", style: "destructive" }]
+        );
+      }
     } catch (e) {
-      console.log(e);
-      throw e;
+      //console.log(e);
+     // throw e;
     }
   };
 

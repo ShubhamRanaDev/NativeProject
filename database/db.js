@@ -1,4 +1,5 @@
 import * as SQLite from 'expo-sqlite';
+import { Alert } from 'react-native';
 
 const db = SQLite.openDatabase('places.db');
 
@@ -52,7 +53,8 @@ export const checkUser =(userName) =>{
                 },
                 (_,err)=>{
                     // console.log("query NOT executed");
-                    reject(err);
+                    
+                    reject(Alert.alert('Invalid', 'User does not exist'));
                 }
             );
         });
