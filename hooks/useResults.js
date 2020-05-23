@@ -3,11 +3,9 @@ import WeatherApi from "../api/WeatherApi";
 
 export default () => {
   const [results, setResults] = useState({});
-  const [errorMessage, setErrorMessage] = useState("");
 
   const searchApi = async (searchTerm) => {
     try {
-      //console.log("city="+searchTerm);
       const response = await WeatherApi.get("/weather", {
         params: {
           q: searchTerm,
@@ -25,5 +23,5 @@ export default () => {
     searchApi("montreal");
   }, []);
 
-  return [searchApi, results, errorMessage];
+  return [searchApi, results];
 };

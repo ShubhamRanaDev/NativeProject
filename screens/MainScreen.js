@@ -1,37 +1,54 @@
 import React, { useState, useEffect } from "react";
-import { View, StyleSheet, ImageBackground } from "react-native";
+import {
+  View,
+  StyleSheet,
+  ImageBackground,
+  TouchableWithoutFeedback,
+  Keyboard,
+} from "react-native";
 import useResults from "../hooks/useResults";
 import SearchBar from "../components/SearchBar";
 import WeatherScreen from "../screens/WeatherScreen";
 
 const MainScreen = ({ navigation }) => {
   const [term, setTerm] = useState("");
-  const [searchApi, results, errorMessage] = useResults();
+  const [searchApi, results] = useResults();
 
   return (
-    <ImageBackground
-      source={require("../assets/back-image.jpg")}
-      style={{
-        width: "100%",
-        flex: 1,
+    <TouchableWithoutFeedback
+      onPress={() => {
+        Keyboard.dismiss();
       }}
-      resizeMode="cover"
     >
-      <View>
-        <SearchBar
-          term={term}
-          onTermChange={setTerm}
-          onSubmit={() => {
-            searchApi(term);
-          }}
-        />
-        <WeatherScreen result={results} />
-        {/* {errorMessage ? <Text>{errorMessage}</Text> : ""} */}
-      </View>
-    </ImageBackground>
+      <ImageBackground
+        source={require("../assets/back-image.jpg")}
+        style={{
+          width: "100%",
+          flex: 1,
+        }}
+        resizeMode="cover"
+      >
+        <View>
+          <View style={styles.container}>
+            <SearchBar
+              term={term}
+              onTermChange={setTerm}
+              onSubmit={() => {
+                searchApi(term);
+              }}
+            />
+          </View>
+          <WeatherScreen result={results} />
+        </View>
+      </ImageBackground>
+    </TouchableWithoutFeedback>
   );
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    alignItems: "center",
+  },
+});
 
 export default MainScreen;
